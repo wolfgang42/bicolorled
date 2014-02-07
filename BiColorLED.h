@@ -1,4 +1,4 @@
-/*  Simple Bicolor LED library for Arduino, v1.0
+/*  Simple Bicolor LED library for Arduino, v1.1
     Copyright (C) 2012 Wolfgang Faust
 
     This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
     Email: wolf@wolfgang.site40.net
 */
 #ifndef BiColorLED_H
-#define BiColorLED_H 1
+#define BiColorLED_H 1.1
 
 #include "WProgram.h" 
 
@@ -27,10 +27,15 @@ class BiColorLED{
 		void drive();
 		void setColor(uint8_t toColor);
 		uint8_t getColor();
+		void setColor2(uint8_t toColor);
+		uint8_t getColor2();
+		void setBlinkSpeed(unsigned long toSpeed);
+		unsigned long getBlinkSpeed();
 	private:
-		uint8_t color;
+		uint8_t color1, color2;
 		uint8_t pin1, pin2;
-		bool yellowRed;
+		bool yellowRed, blinkOne;
+		unsigned long lastBlink, blinkSpeed;
 };
   
 #endif

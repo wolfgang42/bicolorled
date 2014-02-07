@@ -1,4 +1,4 @@
-/*  Simple Bicolor LED library for Arduino, v1.0
+/*  Simple Bicolor LED library for Arduino, v1.1
     Copyright (C) 2012 Wolfgang Faust
 
     This program is free software: you can redistribute it and/or modify
@@ -23,22 +23,49 @@ BiColorLED::BiColorLED(uint8_t ledPin1, uint8_t ledPin2) {
 	pin2=ledPin2;
 	pinMode(pin1, OUTPUT);
 	pinMode(pin2, OUTPUT);
-	color=0;
+	color1=0;
+	color2=0;
+	blinkSpeed=0;
 	yellowRed=false;
+	blinkOne=true;
 }
 
 void BiColorLED::setColor(uint8_t toColor) {
-	color=toColor;
+	color1=toColor;
 	drive(); // Change the color
 }
-
 uint8_t BiColorLED::getColor() {
-	return color;
+	return color1;
+}
+
+void BiColorLED::setColor2(uint8_t toColor) {
+	color2=toColor;
+	drive(); // Change the color
+}
+uint8_t BiColorLED::getColor2() {
+	return color2;
+}
+void BiColorLED::setBlinkSpeed(unsigned long toSpeed) {
+	blinkSpeed=toSpeed;
+	lastBlink=millis();
+	drive();
+}
+unsigned long BiColorLED::getBlinkSpeed() {
+	return blinkSpeed;
 }
 
 void BiColorLED::drive() {
-	uint8_t tmpcolor = color; // Create a temporary color variable
+	uint8_t tmpcolor; // Create a temporary color variable
 	// TODO blinking goes here
+	if (blinkSpeed == 0) {
+		tmpcolor=color1;
+	} else {
+		if (millis() - lastBlink >= blinkSpeed) {
+			blinkOne=!blinkOne;
+			lastBlink += blinkSpeed; 
+		}
+		tmpcolor=blinkOne?color1:color2;
+	}
 	if (tmpcolor == 3) { // Yellow
 		tmpcolor = (yellowRed?1:2);
 		yellowRed = !yellowRed;

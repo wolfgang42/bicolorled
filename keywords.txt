@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For Test
+# Syntax Coloring Map For BiColorLED
 #######################################
 
 #######################################
@@ -14,6 +14,12 @@ BiColorLED	KEYWORD1
 
 drive	KEYWORD2
 setColor	KEYWORD2
+getColor	KEYWORD2
+setColor2	KEYWORD2
+getColor2	KEYWORD2
+setBlinkSpeed	KEYWORD2
+getBlinkSpeed	KEYWORD2
+
 
 #######################################
 # Instances (KEYWORD2)
@@ -22,4 +28,4 @@ setColor	KEYWORD2
 #######################################
 # Constants (LITERAL1)
 #######################################
-
+BiColorLED_H	LITERAL1
