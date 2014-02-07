@@ -1,4 +1,4 @@
-/*  Simple Bicolor LED library for Arduino, v1.1
+/*  Simple Bicolor LED library for Arduino, v1.2
     Copyright (C) 2012 Wolfgang Faust
 
     This program is free software: you can redistribute it and/or modify

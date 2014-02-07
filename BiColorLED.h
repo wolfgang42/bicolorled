@@ -1,4 +1,4 @@
-/*  Simple Bicolor LED library for Arduino, v1.1
+/*  Simple Bicolor LED library for Arduino, v1.2
     Copyright (C) 2012 Wolfgang Faust
 
     This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,11 @@
 #ifndef BiColorLED_H
 #define BiColorLED_H 1.1
 
-#include "WProgram.h" 
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 
 class BiColorLED{
 	public:
