@@ -1,5 +1,5 @@
-/*  Simple Bicolor LED library for Arduino, v1.2
-    Copyright (C) 2012 Wolfgang Faust
+/*  Simple Bicolor LED library for Arduino, v1.4
+    Copyright (C) 2014 Wolfgang Faust
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Lesser General Public License as published by
@@ -25,44 +25,62 @@ BiColorLED::BiColorLED(uint8_t ledPin1, uint8_t ledPin2) {
 	pinMode(pin2, OUTPUT);
 	color1=0;
 	color2=0;
-	blinkSpeed=0;
+	blinkSpeed1=0;
+	blinkSpeed2=0;
 	yellowRed=false;
 	blinkOne=true;
 }
 
 void BiColorLED::setColor(uint8_t toColor) {
-	color1=toColor;
-	drive(); // Change the color
+	setColor(toColor, 0);
 }
-uint8_t BiColorLED::getColor() {
-	return color1;
+void BiColorLED::setColor2(uint8_t toColor) {
+	setColor(color1, toColor);
+}
+void BiColorLED::setColor(uint8_t toColor1, uint8_t toColor2) {
+	color1=toColor1;
+	color2=toColor2;
+	drive(); // Change the color
 }
 
-void BiColorLED::setColor2(uint8_t toColor) {
-	color2=toColor;
-	drive(); // Change the color
+uint8_t BiColorLED::getColor() {
+	return color1;
 }
 uint8_t BiColorLED::getColor2() {
 	return color2;
 }
+
 void BiColorLED::setBlinkSpeed(unsigned long toSpeed) {
-	blinkSpeed=toSpeed;
+	setBlinkSpeed(toSpeed, toSpeed);
+}
+void BiColorLED::setBlinkSpeed(unsigned long toSpeed1, unsigned long toSpeed2) {
+	blinkSpeed1=toSpeed1;
+	blinkSpeed2=toSpeed2;
 	lastBlink=millis();
 	drive();
 }
+
 unsigned long BiColorLED::getBlinkSpeed() {
-	return blinkSpeed;
+	return blinkSpeed1;
+}
+unsigned long BiColorLED::getBlinkSpeed2() {
+	return blinkSpeed2;
 }
 
 void BiColorLED::drive() {
 	uint8_t tmpcolor; // Create a temporary color variable
-	// TODO blinking goes here
-	if (blinkSpeed == 0) {
+	if (blinkSpeed1 == 0) {
 		tmpcolor=color1;
 	} else {
+		unsigned long blinkSpeed;
+		if (blinkOne) {
+			blinkSpeed = blinkSpeed1;
+		} else {
+			blinkSpeed = blinkSpeed2;
+		}
 		if (millis() - lastBlink >= blinkSpeed) {
 			blinkOne=!blinkOne;
-			lastBlink += blinkSpeed; 
+			lastBlink += blinkSpeed;
 		}
 		tmpcolor=blinkOne?color1:color2;
 	}

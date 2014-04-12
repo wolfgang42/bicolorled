@@ -19,6 +19,7 @@ setColor2	KEYWORD2
 getColor2	KEYWORD2
 setBlinkSpeed	KEYWORD2
 getBlinkSpeed	KEYWORD2
+getBlinkSpeed2	KEYWORD2
 
 
 #######################################
